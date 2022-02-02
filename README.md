@@ -1,2 +1,2 @@
 # CubeReview
-Projekat iz Razvoja Informacionih Sistema
+Project for Development of Information Systems
