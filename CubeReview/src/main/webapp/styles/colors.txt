@@ -1,0 +1,12 @@
+red: #b71234
+dark red: #94122d
+
+g: #009b48
+b: #0046ad  
+
+--color-g: 	#009b48; 	
+--color-w: 	#ffffff; 	
+--color-r: 	#b71234; 	
+--color-y: 	#ffd500; 	
+--color-b: 	#0046ad; 	
+--color-o: 	#ff5800;
