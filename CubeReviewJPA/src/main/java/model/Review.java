@@ -26,23 +26,14 @@ public class Review implements Serializable {
 	@Column(name="creation_time")
 	private Date creationTime;
 
+	private int rating;
+
+	private int votes;
+
 	//bi-directional many-to-one association to Cube
 	@ManyToOne
 	@JoinColumn(name="review_cube_id")
 	private Cube cube;
-
-	//bi-directional many-to-many association to RatingType
-	@ManyToMany
-	@JoinTable(
-		name="RaviewRating"
-		, joinColumns={
-			@JoinColumn(name="review_rating_id_review")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="review_rating_id_rating_type")
-			}
-		)
-	private List<RatingType> ratingTypes;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
@@ -84,20 +75,28 @@ public class Review implements Serializable {
 		this.creationTime = creationTime;
 	}
 
+	public int getRating() {
+		return this.rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public int getVotes() {
+		return this.votes;
+	}
+
+	public void setVotes(int votes) {
+		this.votes = votes;
+	}
+
 	public Cube getCube() {
 		return this.cube;
 	}
 
 	public void setCube(Cube cube) {
 		this.cube = cube;
-	}
-
-	public List<RatingType> getRatingTypes() {
-		return this.ratingTypes;
-	}
-
-	public void setRatingTypes(List<RatingType> ratingTypes) {
-		this.ratingTypes = ratingTypes;
 	}
 
 	public User getUser() {

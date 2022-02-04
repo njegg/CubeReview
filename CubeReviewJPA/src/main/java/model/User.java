@@ -37,11 +37,11 @@ public class User implements Serializable {
 	private List<CubeRequest> cubeRequests;
 
 	//bi-directional many-to-one association to FollowUser
-	@OneToMany(mappedBy="user1")
+	@OneToMany(mappedBy="user1", cascade = CascadeType.REMOVE)
 	private List<FollowUser> followUsers1;
 
 	//bi-directional many-to-one association to FollowUser
-	@OneToMany(mappedBy="user2")
+	@OneToMany(mappedBy="user2", cascade = CascadeType.REMOVE)
 	private List<FollowUser> followUsers2;
 
 	//bi-directional many-to-one association to Review
@@ -49,7 +49,7 @@ public class User implements Serializable {
 	private List<Review> reviews;
 
 	//bi-directional many-to-one association to ReviewComment
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
 	private List<ReviewComment> reviewComments;
 
 	//bi-directional many-to-many association to Cube
@@ -71,7 +71,7 @@ public class User implements Serializable {
 	private Role role;
 
 	//bi-directional many-to-one association to UserLikeReview
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
 	private List<UserLikeReview> userLikeReviews;
 
 	public User() {

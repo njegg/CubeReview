@@ -2,9 +2,6 @@ package model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.hibernate.type.TrueFalseType;
-
 import java.util.Date;
 
 
@@ -28,12 +25,12 @@ public class ReviewComment implements Serializable {
 
 	//bi-directional many-to-one association to Review
 	@ManyToOne
-	@JoinColumn(name="comment_review_id", insertable = false, updatable = false)
+	@JoinColumn(name="comment_review_id", updatable = false, insertable = false)
 	private Review review;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="comment_user_id", insertable = false, updatable = false)
+	@JoinColumn(name="comment_user_id", updatable = false, insertable = false)
 	private User user;
 
 	public ReviewComment() {

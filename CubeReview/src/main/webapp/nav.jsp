@@ -53,7 +53,7 @@
         <div class="bar1"></div>
         <div class="bar2"></div>
         <div class="bar3"></div>
-        <ul class="mobile-menu" style="background-color: #2f2f2f">
+        <ul class="mobile-menu">
           <li><a href="/">Home</a></li>
           
           <s:authorize access="isAuthenticated()">
@@ -64,7 +64,7 @@
               </a>
             </li>
             
-            <li id="signup">
+            <li id="login">
               <a href="/auth/logout" >
                 Log out
               </a>

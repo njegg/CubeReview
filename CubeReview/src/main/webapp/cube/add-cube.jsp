@@ -16,5 +16,6 @@
     <f:select items="${types}" path="cubeType" itemLabel="typeName" itemValue="cubeTypeId"></f:select> <br>
     <input class="save-button" type="submit" value="Add a cube">
   </f:form>
+  
 </body>
 </html>

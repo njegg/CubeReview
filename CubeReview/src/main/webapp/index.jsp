@@ -22,8 +22,8 @@
       <a href="/auth/register"> reguste </a> <br>
       <a href="/auth/login">login</a> <br>
       <a href="/cube/all">cubes</a> <br>
-      
       <a href="/cube/add-cube">add cube</a> <br>
+      <a href="/search">search</a> <br>
     </div>
   </main>
   

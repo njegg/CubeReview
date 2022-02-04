@@ -1,5 +1,22 @@
 @charset "UTF-8";
 
+:root {
+  --color-g: 	#009b48; 	
+  --color-w: 	#ffffff; 	
+  --color-r: 	#b71234; 
+  --color-rd:   #94122d;
+  --color-rl:   #ff7a7a;
+  --color-y: 	#ffd500; 	
+  --color-b: 	#1d58ad; 	
+  --color-o: 	#ff5800;
+  
+  --color-c: rgb(222, 221, 218);
+  --bgc: #151515;
+  
+  --grad-r: #732f2f;
+}
+
+
 fieldset {
   border: 0;
   background: #222;
@@ -39,7 +56,7 @@ fieldset {
 }
 .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
   content: "★";
-  color: #e52;
+  color: var(--color-rd);
   text-shadow: 0 0 1px #333;
 }
 .star-cb-group > .star-cb-clear + label {
@@ -57,7 +74,7 @@ fieldset {
 }
 .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
   content: "★";
-  color: #e52;
+  color: var(--color-rd);
   text-shadow: 0 0 1px #333;
 }
 

@@ -46,7 +46,7 @@
               </c:forEach>
             </select>
             
-            <input type="submit" class="submit-button" value="save">
+            <input type="submit" class="save-button" value="save">
             
           </form>		        
         </c:if>
@@ -68,26 +68,79 @@
             <input class="submit-button" type="submit" value="save">
 	      </form>
           <textarea maxlength="256" id="about" name="about" form="save-form" rows="8" cols="32" placeholder="Write something about yourself">${user.about}</textarea>
-	    </c:if>	    
+          
+          <button class="delete-button" onclick="confirmDelete()">Delete Account</button>
+          <script>
+        		function confirmDelete() {
+              	let text = "Are you sure you want to delete this account?";
+                  if (confirm(text) == true) {
+                  	window.location.replace("${root}/user/${user.userId}/delete");
+                  }
+        		}
+  		  </script>
+	    </c:if>
 	  </c:if>
+      
+      <c:if test="${!admin && !owner}">
+        <button class="delete-button" onclick="confirmDelete()">Delete Account</button>
+        <script>
+            function confirmDelete() {
+                let text = "Are you sure you want to delete this account?";
+                  if (confirm(text) == true) {
+                    window.location.replace("${root}/user/${user.userId}/delete");
+                  }
+            }
+        </script>
+      </c:if>
 
-	  <br>
-	  
 	  <c:if test="${!edit}">
         <span id="user-about">${user.about}</span>
-        <hr>
+        <br>
+        <c:if test="${owner}">
+          <h3>Your reviews</h3>
+        </c:if>
       </c:if>
-	  
-	  
-	  <!--
-	  edit-> user/profile/edit -> vrati nazad sa bool edit true -> if edit naravi textfield za prewriten about
-	  
-	  save-> user/profle/save-about
-	  -->
-	  	  
-	  <br><br>
-	  reviews go here
-	  
+	  <br>
+      
+      
+      <c:if test="${!owner}">
+        <h3>
+          <a href="/user/${user.username}">${user.username}</a>'s reviews:
+        </h3>
+      </c:if>
+      <br>
+      
+      <c:forEach items="${reviews}" var="r">
+        <div id="${r.reviewId}" class="review-post">
+          <span class="up-down">
+            <span class="review-votes">${r.votes}</span>
+          </span>
+          <span class="review">
+            <span class="cube-name-review"><a href="/cube/${r.cube.cubeId}">${r.cube.name}</a></span>
+            <br>
+            <a href="/user/${r.user.username}">${r.user.username}  </a>
+            <span class="post-time">at: ${r.creationTime}</span>
+            <br>
+             
+            <c:forEach begin="1" end="${r.rating}" varStatus="loop">
+                <span class="star">
+                  ☆
+                </span>
+            </c:forEach>
+            <c:forEach begin="1" end="${5 - r.rating}" varStatus="loop">
+                <span>
+                  ☆
+                </span>
+            </c:forEach>
+            <br>
+            
+            <a href="/cube/${r.cube.cubeId}#${r.reviewId}" class="review-content">
+              <span>${r.content}</span>
+            </a>
+          </span>
+        </div>
+      </c:forEach>
+    
     </div>
   </main>
   

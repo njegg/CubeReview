@@ -16,16 +16,16 @@ public class UserLikeReview implements Serializable {
 	@EmbeddedId
 	private UserLikeReviewPK id;
 
-	private byte like;
+	private byte likes;
 
 	//bi-directional many-to-one association to Review
 	@ManyToOne
-	@JoinColumn(name="like_review_id", insertable = false, updatable = false)
+	@JoinColumn(name="like_review_id", updatable = false, insertable = false)
 	private Review review;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="like_user_id", insertable = false, updatable = false)
+	@JoinColumn(name="like_user_id", updatable = false, insertable = false)
 	private User user;
 
 	public UserLikeReview() {
@@ -39,12 +39,12 @@ public class UserLikeReview implements Serializable {
 		this.id = id;
 	}
 
-	public byte getLike() {
-		return this.like;
+	public byte getLikes() {
+		return this.likes;
 	}
 
-	public void setLike(byte like) {
-		this.like = like;
+	public void setLikes(byte likes) {
+		this.likes = likes;
 	}
 
 	public Review getReview() {

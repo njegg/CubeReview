@@ -5,11 +5,11 @@
   <meta charset="UTF-8">
   <title>Login to CubeReview</title>
   
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="../styles/style.css">  
-  <link rel="stylesheet" href="../styles/form.css">
-  <link rel="stylesheet" href="../styles/nav.css">
-  
+  <%request.setAttribute("root", request.getContextPath());%>
+  <link rel="stylesheet" href="${root}/styles/style.css">
+  <link rel="stylesheet" href="${root}/styles/form.css">
+  <link rel="stylesheet" href="${root}/styles/nav.css">
+
   <!-- icons -->
   <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -18,7 +18,7 @@
 </head>
 <body>
 
-	<%@include  file="../nav.jsp" %>
+  <jsp:include page="${root}/nav.jsp"></jsp:include>
   <div class="grid">
 	
 	<c:if test="${!empty msgerr}">
@@ -72,6 +72,6 @@
     </p>
 
   </div>
-
+  
 </body>
 </html>

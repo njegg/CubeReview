@@ -23,12 +23,12 @@ public class FollowUser implements Serializable {
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="follower_id", insertable = false, updatable = false)
+	@JoinColumn(name="follower_id", updatable = false, insertable = false)
 	private User user1;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="followed_id", insertable = false, updatable = false)
+	@JoinColumn(name="followed_id", updatable = false, insertable = false)
 	private User user2;
 
 	public FollowUser() {

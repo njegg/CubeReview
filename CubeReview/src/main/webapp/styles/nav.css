@@ -57,20 +57,25 @@ ul li:hover {
 }
 
 #signup {
-  border: 1px solid #498afb;
+  border: 1px solid var(--color-b);
 }
 
 #login {
-  border: 1px solid #ff3860;
+  border: 1px solid var(--color-rd);
 }
 
 #login a {
-  color: #ff3860;
+  color: var(--color-rd);
 }
 
 #signup a {
-  color: #498afb;
+  color: var(--color-b);
 }
+
+#signup a:hover {
+  text-shadow: 0 0 5px #77f;
+}
+
 
 #hamburger-icon {
   margin: auto 0;
