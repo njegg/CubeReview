@@ -15,6 +15,11 @@
   <link rel="stylesheet" href="${root}/styles/form.css">
   <link rel="stylesheet" href="${root}/styles/nav.css">
   <link rel="stylesheet" href="${root}/styles/stars.css">
+  <link rel="stylesheet" href="${root}/styles/review.css">
+  
+  <script type="text/javascript" src="${root}/js/confirm-delete.js"></script>
+  <script type="text/javascript" src="${root}/js/toggle-div-by-id.js"></script>
+  
 </head>
 <body>
   <jsp:include page="${root}/nav.jsp"></jsp:include>
@@ -83,30 +88,23 @@
           <input class="save-button" type="submit" value="Save">
           </form>
          
-          <button class="delete-button" onclick="confirmDelete()">Delete Cube</button>
-          <script>
-            function confirmDelete() {
-                let text = "Are you sure you want to delete this cube?";
-                if (confirm(text) == true) {
-                  window.location.replace("${root}/cube/${cube.cubeId}/delete");
-                }
-            }
-          </script>
+          <button class="delete-button" 
+            onclick="confirmDelete('Are you sure you want to delete this cube?', '${root}/cube/${cube.cubeId}/delete')">
+              Delete Cube
+          </button>
         </c:otherwise>
       </c:choose>
-
       <hr>
       
       <s:authorize access="!isAuthenticated()">
         <a href="/auth/login">Log in</a> to write a review
       </s:authorize>
       
-      
       <!-- if loged in and not reviewd, post new, if reviewd, edit review  -->
       <s:authorize access="isAuthenticated()">
         <c:if test="${!hasReviewed}">
           Write a review as
-          <a href="/user/${user.userId}">${user.username}</a>
+          <a href="/user/${user.username}">${user.username}</a>
           
           <form id="save-form" name="save-form" action="/review/post-review?cubeId=${cube.cubeId}&edit=0" method="post">     
         </c:if>
@@ -135,18 +133,12 @@
             </span>
           </fieldset>
               
-          <input class="submit-button" type="submit" value="save"><br>
+          <input class="submit-button" type="submit" value="Post"><br>
           <c:if test="${hasReviewed}">
-            <hr>
-            <button class="delete-button" onclick="confirmDelete()">Delete review</button>
-            <script>
-              function confirmDelete() {
-                  let text = "Are you sure you want to delete your review?";
-                  if (confirm(text) == true) {
-                    window.location.replace("${root}/review/delete-for-cube-and-logger-user?cubeId=${cube.cubeId}");
-                  }
-              }
-            </script>     
+            <a class="delete-button" 
+              onclick="confirmDelete('Are you sure you want to delete your review?', '${root}/review/delete-for-cube-and-logger-user?cubeId=${cube.cubeId}')">
+              Delete your review
+            </a>
           </c:if>
         </form>
         
@@ -211,17 +203,49 @@
             
           </span>
           
-          <s:authorize access="hasRole('ADMIN')">
-            <div class="mod-delete-review">
-                <button class="delete-button" onclick="confirmDelete()">Delete review</button>
-                <script>
-                  function confirmDelete() {
-                      if (confirm("Are you sure you want to delete ${r.user.username}'s review?") == true)
-                        window.location.replace("${root}/review/${r.reviewId}/delete");
-                  }
-                </script>
-            </div>
-          </s:authorize>
+          <div class="under-review">
+            <s:authorize access="hasRole('ADMIN')">
+              <a onclick="confirmToDelete('Are you sure you want to delete review of user: ${r.user.username}?', '${root}/review/${r.reviewId}/delete')" class="under-review-content">Delete review</a>
+            </s:authorize>
+            
+            <!-- toggle all comments -->
+            <!-- toggle post comment form -->
+            <a onclick='toggle_div_by_id("review-comments-${r.reviewId}")' class="under-review-content">Toggle comments</a>
+          </div>
+
+          <div class="review-comments" id="review-comments-${r.reviewId}">
+            <textarea maxlength="300"
+                  id="comment-text-${r.reviewId}"
+                  name="content"
+                  form="comment-form-${r.reviewId}" 
+                  rows="8" cols="32"
+                  placeholder="Comment here…"></textarea>
+          
+            <form action="/review/${r.reviewId}/comment" method="post" id="comment-form-${r.reviewId}" name="comment-form-${r.reviewId}">
+              <input type="submit" class="submit-button" value="Post">
+              <br>            
+            </form>
+          
+            <c:forEach items="${r.reviewComments}" var="c">
+              <div class="comment" id="comment-${c.commentId}">
+                <a href="/user/${c.user.username}">${c.user.username} </a>
+                <span class="post-time">at ${c.commentDate}</span>
+                <br>
+                <span class="comment-content">
+                  ${c.content}
+                </span>
+                <br>
+                <s:authorize access="hasAnyRole('ADMIN', 'MOD')">
+                  <button 
+                      class="delete-comment-button delete-button" 
+                      onclick="confirmDelete('Are you sure you want to delete this comment?', '${root}/review/comment/${c.commentId}/delete')">
+                      Delete comment
+                  </button>
+                </s:authorize>
+              </div>
+            </c:forEach>
+          </div>
+          
         </div>
         <br>
       </c:forEach>
@@ -229,5 +253,11 @@
     </div>
   </main>
   <jsp:include page="${root}/footer.jsp"></jsp:include>
+  
+  <script>
+    function confirmToDelete(text, path) {
+      if (confirm(text) == true) window.location.replace(path);
+  	}
+  </script>
 </body>
 </html>

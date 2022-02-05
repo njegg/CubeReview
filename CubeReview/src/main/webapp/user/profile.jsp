@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="${root}/styles/style.css">
   <link rel="stylesheet" href="${root}/styles/form.css">
   <link rel="stylesheet" href="${root}/styles/nav.css">
+  <link rel="stylesheet" href="${root}/styles/review.css">
   
 </head>
 <body>
@@ -140,9 +141,9 @@
           </span>
         </div>
       </c:forEach>
-    
     </div>
   </main>
   
+  <jsp:include page="${root}/footer.jsp"></jsp:include>
 </body>
 </html>

@@ -7,12 +7,11 @@
 		<class>model.FollowUser</class>
 		<class>model.FollowUserPK</class>
 		<class>model.Review</class>
-		<class>model.ReviewComment</class>
-		<class>model.ReviewCommentPK</class>
 		<class>model.Role</class>
 		<class>model.User</class>
 		<class>model.UserLikeReview</class>
 		<class>model.UserLikeReviewPK</class>
+		<class>model.ReviewComment</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/CubeReview"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

@@ -14,42 +14,44 @@ import java.util.Date;
 public class ReviewComment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private ReviewCommentPK id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="comment_id")
+	private int commentId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="commnet_date")
-	private Date commnetDate;
+	@Column(name="comment_date")
+	private Date commentDate;
 
 	private String content;
 
 	//bi-directional many-to-one association to Review
 	@ManyToOne
-	@JoinColumn(name="comment_review_id", updatable = false, insertable = false)
+	@JoinColumn(name="comment_review_id")
 	private Review review;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="comment_user_id", updatable = false, insertable = false)
+	@JoinColumn(name="comment_user_id")
 	private User user;
 
 	public ReviewComment() {
 	}
 
-	public ReviewCommentPK getId() {
-		return this.id;
+	public int getCommentId() {
+		return this.commentId;
 	}
 
-	public void setId(ReviewCommentPK id) {
-		this.id = id;
+	public void setCommentId(int commentId) {
+		this.commentId = commentId;
 	}
 
-	public Date getCommnetDate() {
-		return this.commnetDate;
+	public Date getCommentDate() {
+		return this.commentDate;
 	}
 
-	public void setCommnetDate(Date commnetDate) {
-		this.commnetDate = commnetDate;
+	public void setCommentDate(Date commentDate) {
+		this.commentDate = commentDate;
 	}
 
 	public String getContent() {

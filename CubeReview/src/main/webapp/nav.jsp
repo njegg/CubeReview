@@ -24,9 +24,9 @@
       <nav>
         <ul>
           <li><a href="/">Home</a></li>
+          <li><a href="/cube/all">Cubes</a></li>
           
           <s:authorize access="isAuthenticated()">
-          
             <li>
               <a href="/user/<s:authentication property="principal.username" />">
                  <s:authentication property="principal.username" />
@@ -59,8 +59,8 @@
           <s:authorize access="isAuthenticated()">
           
             <li>
-              <a href="/">
-                <s:authentication property="principal.username" /> 
+              <a href="/user/<s:authentication property="principal.username" />">
+                 <s:authentication property="principal.username" />
               </a>
             </li>
             

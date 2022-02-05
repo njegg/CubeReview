@@ -43,3 +43,6 @@ VALUES ('epik cube', '2021', 'img', '2');
 
 INSERT INTO `CubeReview`.`Cube` (`name`, `release_year`, `image_path`, `cube_cube_type_id`)
 VALUES ('epik cube', '2021', 'img', '2');
+
+
+

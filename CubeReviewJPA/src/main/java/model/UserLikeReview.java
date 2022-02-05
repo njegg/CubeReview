@@ -20,12 +20,12 @@ public class UserLikeReview implements Serializable {
 
 	//bi-directional many-to-one association to Review
 	@ManyToOne
-	@JoinColumn(name="like_review_id", updatable = false, insertable = false)
+	@JoinColumn(name="like_review_id", insertable = false, updatable = false)
 	private Review review;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="like_user_id", updatable = false, insertable = false)
+	@JoinColumn(name="like_user_id", insertable = false, updatable = false)
 	private User user;
 
 	public UserLikeReview() {

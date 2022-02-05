@@ -1,0 +1,162 @@
+@charset "UTF-8";
+
+:root {
+  --color-g: 	#009b48; 	
+  --color-w: 	#ffffff; 	
+  --color-r: 	#b71234; 
+  --color-rd:   #94122d;
+  --color-rl:   #ff7a7a;
+  --color-y: 	#ffd500; 	
+  --color-b: 	#1d58ad; 	
+  --color-o: 	#ff5800;
+  
+  --color-c: rgb(222, 221, 218);
+  --bgc: #151515;
+  
+  --grad-r: #732f2f;
+}
+
+/* ----------  REVIEWS ------------- */
+
+.star {
+  color: var(--color-rl);
+}
+
+.post-time {
+  color: #9e9e9e;
+  font-size: 16px;	
+}
+
+/* whole thing */
+.review-post {
+  background-color: var(--bgc-l);
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  
+  display: inline-block;
+  width: 100%;
+  
+  position: relative;
+}
+
+/* just the content */
+.review {
+  display: inline-block;
+  margin-left: 25px;
+  width: 80%;
+}
+
+.review-content {
+  width: 100%;
+  padding: 6px;
+  display: inline-block;
+  color: var(--color-c);
+}
+
+.review-content:hover {
+  background-color: #444;
+}
+
+.cube-name-review a {
+  text-decoration: underline;
+}
+
+.rating-id {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  color: #999;
+}
+
+.under-review {
+  width: 100%;
+  border-top: 1px solid var(--grad-r);
+  opacity: 90%;
+  margin-top: 10px;
+  line-height: 20px;
+}
+
+.under-review-content {
+  color: var(--color-rl);
+  font-size: 15px;
+  float: right;
+  margin-top: 2px;
+  padding-left: 10px;
+}
+
+
+/* ----------- COMMENTS ------------*/
+
+
+.review-comments {
+  margin-top: 20px;
+  padding-left: 30px;
+  font-size: 18px;
+}
+
+.comment {
+  background-color: #292929;
+  margin-top: 10px;
+  padding: 7px 7px 10px 12px;
+  position: relative;
+}
+
+.comment-content {
+  display: inline-block;
+  width: 100%;
+  background-color: #222;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.review-comments textarea {
+  margin-bottom: 10px;
+  margin-top: 8px;
+}
+
+.review-comments input {
+  background-color: rgba(0,0,0,0);
+}
+
+.delete-comment-button {
+  font-size: 15px;
+  position: absolute;
+  right: 0;
+  top:0;
+  padding: 7px;
+}
+
+
+/* ------------ LIKE 'ARROWS'  ---------------*/
+
+
+.review-votes {
+  font-size: 16px;
+}
+
+.clear-arrow {
+  color: var(--color-c);
+}
+
+.liked-arrow {
+  color: var(--color-g);
+  text-shadow: 0 0 5px var(--color-g);
+}
+
+.disliked-arrow {
+  color: var(--color-rl);
+  text-shadow: 0 0 5px var(--color-rl);
+}
+
+.up-down {
+  display: inline-block;
+  background-color: var(--bgc-l);
+  width: 10px;
+}
+
+.review-votes {
+  font-size: 14px;
+  color: #aaa;
+}
+

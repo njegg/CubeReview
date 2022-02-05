@@ -41,11 +41,11 @@ public class Review implements Serializable {
 	private User user;
 
 	//bi-directional many-to-one association to ReviewComment
-	@OneToMany(mappedBy="review")
+	@OneToMany(mappedBy="review", cascade = CascadeType.REMOVE)
 	private List<ReviewComment> reviewComments;
 
 	//bi-directional many-to-one association to UserLikeReview
-	@OneToMany(mappedBy="review")
+	@OneToMany(mappedBy="review", cascade = CascadeType.REMOVE)
 	private List<UserLikeReview> userLikeReviews;
 
 	public Review() {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.njegg.repository.CommentRepo;
 import com.njegg.repository.CubeRepo;
 import com.njegg.repository.ReviewRepo;
 import com.njegg.repository.UserLikeReviewRepo;
@@ -21,6 +22,7 @@ import com.njegg.security.CustomUserDetail;
 
 import model.Cube;
 import model.Review;
+import model.ReviewComment;
 import model.User;
 import model.UserLikeReview;
 import model.UserLikeReviewPK;
@@ -40,6 +42,9 @@ public class ReviewController {
 	
 	@Autowired
 	UserLikeReviewRepo ulrRepo;
+	
+	@Autowired
+	CommentRepo commentRepo;
 	
 	@PostMapping("/post-review")
 	public String postReview(Model model, Integer cubeId, String content, Integer rating, Integer edit) {
@@ -165,15 +170,22 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/delete-for-cube-and-logger-user")
-	public void deleteFromLoggerUser(Integer cubeId, Model model) {
+	public String deleteFromLoggerUser(Integer cubeId, Model model) {
 		User user = currentUser();
 		if (user == null) {
-			return;
+			return "error";
 		}
+		
 		Cube cube = cubeRepo.findById(cubeId).orElseThrow();
 		Review review = reviewRepo.findByCubeAndUser(cube, user);
 		
-		delete(review.getReviewId(), model);
+		cube.removeReview(review);
+		user.removeReview(review);
+		
+		model.addAttribute("cube", cube);
+		reviewRepo.deleteById(review.getReviewId());
+		
+		return "redirect:/cube/" + cube.getCubeId();
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN', 'MOD')")
@@ -188,9 +200,56 @@ public class ReviewController {
 		Cube cube = review.getCube();
 		model.addAttribute("cube", cube);
 		
+		review.getUser().removeReview(review);
+		cube.removeReview(review);
+		
 		reviewRepo.deleteById(reviewId);
 		
-		return "cube/cube-details";
+		return "redirect:/cube/" + cube.getCubeId();
+	}
+	
+	@PostMapping("/{reviewId}/comment")
+	public String comment(Model m, String content, @PathVariable Integer reviewId) {
+		User user = currentUser();
+		Review review = reviewRepo.findById(reviewId).orElseThrow();
+		Cube cube = review.getCube();
+		
+		if (user == null) {
+			return "auth/login";
+		}
+		
+		ReviewComment comment = new ReviewComment();
+		comment.setContent(content);
+		comment.setReview(review);
+		comment.setUser(user);
+		comment.setCommentDate(new Date());
+		
+		user.addReviewComment(comment);
+
+		commentRepo.save(comment);
+		
+		return "redirect:/cube/" + cube.getCubeId() + "#comment-" + comment.getCommentId();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'MOD')")
+	@GetMapping("/comment/{commentId}/delete")
+	public String deleteComment(@PathVariable Integer commentId, Model model) {
+		ReviewComment comment = commentRepo.findById(commentId).orElse(null);
+		if (comment == null) {
+			model.addAttribute("obj", "Comment with id" + commentId);
+			return "not-found";
+		}
+		
+		Review review = comment.getReview();
+		Cube cube = review.getCube();
+		User userWhoCommented = review.getUser();
+		
+		userWhoCommented.removeReviewComment(comment);
+		review.removeReviewComment(comment);
+		
+		commentRepo.deleteById(commentId);
+		
+		return "redirect:/cube/" + cube.getCubeId();
 	}
 	
 	/* ------------ helpers --------------*/

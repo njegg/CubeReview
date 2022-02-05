@@ -33,7 +33,7 @@ public class Cube implements Serializable {
 	private CubeType cubeType;
 
 	//bi-directional many-to-one association to Review
-	@OneToMany(mappedBy="cube")
+	@OneToMany(mappedBy="cube", cascade = CascadeType.REMOVE)
 	private List<Review> reviews;
 
 	//bi-directional many-to-many association to User

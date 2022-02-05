@@ -1,33 +1,20 @@
 # TODO
 
+- [ ] NAV BAR STUFF 
+- [ ] only registered can search users
 
-- [ ] delete review as owner or mod or admin
-- [ ] comment
 - [ ] account setting page for users and admin
 
-- [ ] monospace font
-
 - [ ] 'add cube' style
- 
-- [ ] editable data for cube - mod and admin
-- [ ] mod and admin delete cube
 
 - [ ] cubes nav bar link
 
 - [ ] omoguciti da jedan korisnik prati druge korisnike, pa da su mu na home stranici prikazane prvo njihove recenzije.   
-- [ ] only registered can search users
-
-- [ ] redirect to prev after login: https://www.baeldung.com/spring-security-redirect-login
-- [ ] dropdown list
-- [ ] drowpdown for search ??
-
-- [ ] make it run from jar, try on server
 
 - [ ] how to solve
-
 - [ ] izvestaji
 
-
+- [ ] redirect to prev after login: https://www.baeldung.com/spring-security-redirect-login
 
 ## day 4
 - [x] all cubes
@@ -65,4 +52,10 @@
 - [x] fix color for like dislike
 - [x] id above review
 - [x] cubes sorted by rating
+- [x] editable data for cube - mod and admin
+- [x] mod and admin delete cube
 
+## day 10
+
+- [x] delete review as owner or mod or admin
+- [x] comment
