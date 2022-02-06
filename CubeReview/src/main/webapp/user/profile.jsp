@@ -52,21 +52,43 @@
           </form>		        
         </c:if>
 	  </s:authorize>
+      <br>
       
+      <c:if test="${!owner}">
+        <c:choose>
+          <c:when test="${followed}">
+            <span class="following-you">${user.username} is following you!</span>
+          </c:when>
+          <c:otherwise>
+            ${user.username} is not following you            
+          </c:otherwise>
+        </c:choose>
+        <br>
+        <a href="/user/${user.username}/follow" class="follow-link">
+          <c:choose>
+            <c:when test="${following}">
+              Unfollow
+            </c:when>
+            <c:otherwise>
+              Follow    
+            </c:otherwise>
+          </c:choose>
+        </a>
+      </c:if>
       <hr>
-      
+
 	  <span class="main-heading">About me</span>
 	  
 	  <c:if test="${owner}">
 	    <c:if test="${!edit}">
           <a id="edit-about" href="/user/${user.username}/edit-about">
-	        edit
+	        Edit
 	      </a>
 	    </c:if>
 
 	    <c:if test="${edit}">
 	      <form id="save-form" name="save-form" action="/user/${user.username}/save-about" method="post">
-            <input class="submit-button" type="submit" value="save">
+            <input class="submit-button float-right" type="submit" value="save">
 	      </form>
           <textarea maxlength="256" id="about" name="about" form="save-form" rows="8" cols="32" placeholder="Write something about yourself">${user.about}</textarea>
           
@@ -82,8 +104,8 @@
 	    </c:if>
 	  </c:if>
       
-      <c:if test="${!admin && !owner}">
-        <button class="delete-button" onclick="confirmDelete()">Delete Account</button>
+      <c:if test="${admin && !owner}">
+        <button class="delete-button float-right" onclick="confirmDelete()">Delete Account</button>
         <script>
             function confirmDelete() {
                 let text = "Are you sure you want to delete this account?";

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-    
+<%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+
 <!DOCTYPE html>
 <html>
   <head>	
@@ -30,6 +31,11 @@
           <a href="/cube/sorted-rating">Show best rated</a>   
         </c:otherwise>
       </c:choose>
+      
+      <s:authorize access="hasAnyRole('ADMIN', 'MOD')">
+        <br>
+        <a href="/cube/add-cube">Add a new cube</a> 
+      </s:authorize>
 
       <form action="/cube/search" method="get">
         <input name="query" type="text" class="search-text" placeholder="Search by name, type or release year">
@@ -39,6 +45,11 @@
       <hr>
       
       <table class="all-table">
+          <tr>
+            <th>Cube</th>
+            <th>Type</th>
+            <th>Release Year</th>
+          </tr>
         <c:forEach items="${cubes}" var="c">
           <tr>
             <td class="cube-name-col">
@@ -53,6 +64,20 @@
           </tr>
         </c:forEach>     
       </table>
+      <hr>
+      
+      <s:authorize access="hasRole('USER')">
+        Cant find your cube? Send us a request <a href="/cube/request.jsp">here</a>!
+        <br>
+        You can also check <a href="/request/userRequests">all your past requests</a>
+      </s:authorize>
+      <s:authorize access="!isAuthenticated()">
+        Cant find your cube? <a href="/auth/login">Log in </a> to send us a request.
+      </s:authorize>
+      
+      <s:authorize access="hasAnyRole('MOD', 'ADMIN')">
+        List of <a href="/request/all">all user cube requests</a>
+      </s:authorize>
     </div>
   </main>
   

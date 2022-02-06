@@ -1,5 +1,6 @@
 package com.njegg.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.njegg.repository.FollowRepo;
 import com.njegg.repository.ReviewRepo;
 import com.njegg.repository.RoleRepo;
 import com.njegg.repository.UserRepo;
 import com.njegg.security.CustomUserDetail;
 
+import model.FollowUser;
+import model.FollowUserPK;
 import model.Review;
 import model.Role;
 import model.User;
@@ -37,27 +41,44 @@ public class UserController {
 	@Autowired
 	ReviewRepo reviewRepo;
 	
+	@Autowired
+	FollowRepo followRepo;
+	
 	/* ------ PROFILES --------*/
 	
 	@GetMapping("/{username}")
 	public String profile(@PathVariable String username, Model model, HttpServletRequest request) {
 		User user = userRepo.findByUsername(username);
 		if (user == null) {
-			model.addAttribute("obj", "User");
+			model.addAttribute("obj", "User " + username);
 			return "not-found";
 		}
 		
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (!(principal instanceof CustomUserDetail)) {
+		// only registered users can look profiles
+		User loggedUser = currentUser();
+		if (loggedUser == null) {
 			model.addAttribute("msgerr", "You must log in first");
 			return "auth/login";
 		}
 		
+		boolean owner = loggedUser.getUsername().equals(username);
+		
 		List<Review> usersReviews = reviewRepo.findByUser(user);
+		
+		// check if logged user is following this user
+		if (!owner) {
+			// logged user is following owner
+			FollowUser following = followRepo.findByUser1AndUser2(loggedUser, user).orElse(null);
+			// logged user is being followed by owner
+			FollowUser followed  = followRepo.findByUser1AndUser2(user, loggedUser).orElse(null);
+			
+			model.addAttribute("following", following != null);
+			model.addAttribute("followed",  followed  != null);
+		}
 		
 		model.addAttribute("reviews", usersReviews);
 		model.addAttribute("user", user);
-		model.addAttribute("owner", isOwner(username));
+		model.addAttribute("owner", owner);
 		model.addAttribute("admin", request.isUserInRole("ROLE_ADMIN"));
 		
 		return "user/profile";
@@ -70,13 +91,13 @@ public class UserController {
 			model.addAttribute("obj", "User");
 			return "not-found";
 		}
-		model.addAttribute("user", user);
 		
-		boolean owner = isOwner(username);
+		boolean owner = currentUser().getUsername().equals(username);
 		if (!owner) {
 			return "access-denied";
 		}
 		
+		model.addAttribute("user", user);
 		model.addAttribute("owner", owner);
 		model.addAttribute("edit", true);
 		
@@ -91,15 +112,13 @@ public class UserController {
 			return "not-found";
 		}
 		
-		if (!isOwner(username)) {
+		User loggedUser = currentUser();
+		if (loggedUser == null || !loggedUser.getUsername().equals(username)) {
 			return "access-denied";
 		}
 		
 		user.setAbout(about);
 		userRepo.save(user);
-		
-		model.addAttribute("edit", false);
-		model.addAttribute("user", user);
 		
 		return "redirect:/user/" + username;
 	}
@@ -131,22 +150,6 @@ public class UserController {
 			return null;
 		}
 	}
-	
-	private boolean isOwner(String username) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		CustomUserDetail userDetail;
-		
-		try {
-			userDetail = (CustomUserDetail) auth.getPrincipal();
-		} catch (Exception e) {
-			return false;
-		}
-
-		return userDetail.getUsername().equals(username);
-	}
-	
-	
-	/* ------ --------*/
 	
 	@GetMapping("/all")
 	public String allUsers(Model model) {
@@ -193,6 +196,48 @@ public class UserController {
 		
 		model.addAttribute("ediRole", false);
 		model.addAttribute("user", user);
+		
+		return "redirect:/user/" + username;
+	}
+	
+	/* ----------- FOLLOW ---------------*/
+	
+	@GetMapping("/{username}/follow")
+	public String followOrUnfollow(@PathVariable String username, Model model) {
+		User userToFollow = userRepo.findByUsername(username);
+		if (userToFollow == null) {
+			model.addAttribute("obj", "User " + username);
+			return "not-found";
+		}
+		
+		User loggedUser = currentUser();
+		if (loggedUser == null) {
+			return "auth/login";
+		}
+		
+		FollowUserPK pk = new FollowUserPK();
+		pk.setFollowerId(loggedUser.getUserId());
+		pk.setFollowedId(userToFollow.getUserId());
+		
+		FollowUser follow = followRepo.findById(pk).orElse(null);
+		
+		if (follow == null) {
+			follow = new FollowUser();
+			follow.setId(pk);
+			follow.setFollowDate(new Date());
+			follow.setUser1(loggedUser);
+			follow.setUser2(userToFollow);
+			
+			loggedUser.addFollowUsers1(follow);
+			userToFollow.addFollowUsers2(follow);
+			
+			followRepo.save(follow);
+		} else {
+			loggedUser.removeFollowUsers1(follow);
+			userToFollow.removeFollowUsers2(follow);
+			
+			followRepo.delete(follow);
+		}
 		
 		return "redirect:/user/" + username;
 	}

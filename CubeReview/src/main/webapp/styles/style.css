@@ -118,8 +118,28 @@ main {
   font-size: 50px;
 }
 
-
 /* ----------- ---------------*/
+
+select {
+  font: inherit;
+  border-radius: 0px;
+  outline: none;
+  border: 1px solid var(--color-rd);
+  
+  background-color: rgba(0,0,0,0);
+  color: var(--color-c);
+}
+
+.edit-table td:first-child {
+  color: #999;
+}
+
+.edit-table tr {
+   height: 40px; 
+}
+.edit-table td {
+  padding-right: 20px;
+}
 
 textarea {
   color: var(--color-c);
@@ -230,6 +250,16 @@ h1 {
   outline: none;
   border: none;
   margin: 0px;
+}
+
+.float-right {
+  float: right;
+  margin-top: 5px; 
+}
+
+#user-about {
+  background-color: #2f2f2f;
+  padding: 1px 1px 1px 7px;
 }
 
 /* ----------  ALL-TABLE  ------------- */

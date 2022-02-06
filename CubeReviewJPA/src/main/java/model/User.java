@@ -71,7 +71,7 @@ public class User implements Serializable {
 	private Role role;
 
 	//bi-directional many-to-one association to UserLikeReview
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
 	private List<UserLikeReview> userLikeReviews;
 
 	public User() {

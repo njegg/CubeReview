@@ -73,7 +73,7 @@ public class ReviewController {
 	
 		model.addAttribute("cube", c);
 		
-		return "redirect:/cube/" + cubeId;
+		return "redirect:/cube/" + cubeId + "#" + review.getReviewId();
 	}
 	
 	
@@ -249,7 +249,7 @@ public class ReviewController {
 		
 		commentRepo.deleteById(commentId);
 		
-		return "redirect:/cube/" + cube.getCubeId();
+		return "redirect:/cube/" + cube.getCubeId() + "#" + review.getReviewId();
 	}
 	
 	/* ------------ helpers --------------*/

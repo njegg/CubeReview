@@ -19,18 +19,9 @@
   
   <main>
     <div id="main-content">
-      <form action="/search" method="get">
-        <input name="query" type="text" placeholder="Type something">
+      <form action="/search/users" method="get">
+        <input name="query" type="text" placeholder="Type something…">
         <input id="search-button" type="submit" value="Search">
-
-        <p>        
-        <input type="radio" id="users" name="type" value="users" checked>
-        <label for="users">Users</label>
-        
-        <input type="radio" id="cubes" name="type" value="cubes">
-        <label for="cubes">Cubes</label>
-        </p>
-        
       </form>
       
       <c:if test="${!empty msg}">
@@ -51,18 +42,6 @@
         </c:forEach> 
       </c:if>
 
-      <c:if test="${!empty cubes}">
-        <c:forEach items="${cubes}" var="c">
-          <b>
-            <a href="/cube/${c.cubeId}">
-              ${c.name}
-            </a>
-          </b>
-          <span class="ver-line">&#65372</span> ${c.cubeType.typeName} <span class="ver-line">&#65372</span> ${c.releaseYear}
-          <br>
-        </c:forEach> 
-      </c:if>
-      
     </div>
   </main>
   <jsp:include page="${root}/footer.jsp"></jsp:include>

@@ -25,5 +25,13 @@ public interface ReviewRepo extends JpaRepository<Review, Integer> {
 	)
 	List<Review> findByUserLikedReviewOfCube(@Param("u") User curUser, @Param("c") Cube cube, @Param("l") int like);
 	
+	
 	Review findByCubeAndUserUsername(Cube cube, String username);
+	
+	@Query(
+		"select r from Review r where r.user in "
+	  + "(select fu.user2 from FollowUser fu "
+	  + "where fu.user1 like :u)"
+	)
+	List<Review> findByUserFollowers(@Param("u") User u);
 }

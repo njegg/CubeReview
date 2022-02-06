@@ -24,33 +24,23 @@ public class SearchController {
 	@Autowired
 	UserRepo userRepo;
 	
-	
-	@GetMapping("")
+	@GetMapping("/users")
 	public String search(String query, String type, Model model) {
-		if (query == null) return "search/search-users-cubes";
+		if (query == null) return "search/search-users";
 		
 		if (query.length() < 2) {
 			model.addAttribute("msg", "You must input at least 2 characters");
-			return "search/search-users-cubes";
+			return "search/search-users";
 		}
 		
-		int count = 0;
+		List<User> users = userRepo.findByUsernameContainsIgnoreCase(query);
+		model.addAttribute("users", users);
 		
-		if (type.equals("cubes")) {
-			List<Cube> cubes = cubeRepo.findByNameContainsIgnoreCase(query);
-			model.addAttribute("cubes", cubes);
-			count = cubes.size();
-		} else if (type.equals("users")) {
-			List<User> users = userRepo.findByUsernameContainsIgnoreCase(query);
-			model.addAttribute("users", users);
-			count = users.size();
-		}
-		
-		if (count == 0 ) {
+		if (users.size() == 0) {
 			model.addAttribute("msg", "Nothing was found");
 		}
 		
-		return "search/search-users-cubes";
+		return "search/search-users";
 	}
 	
 }

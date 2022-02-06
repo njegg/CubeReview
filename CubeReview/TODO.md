@@ -1,20 +1,26 @@
 # TODO
 
-- [ ] NAV BAR STUFF 
+# !!!!!!!!!!!! FIX C A M E R A !!!!!!!!!!!!!!
+
+- [ ] requests links not in index, but on top of all cubes
+
+- [ ] smaller login home
+
+- [x] requests
+	- [ ] style
+	 
+- [ ] report review
+
+
+- [ ] edit role
+- [ ] profile scripts
+
 - [ ] only registered can search users
 
-- [ ] account setting page for users and admin
 
-- [ ] 'add cube' style
-
-- [ ] cubes nav bar link
-
-- [ ] omoguciti da jedan korisnik prati druge korisnike, pa da su mu na home stranici prikazane prvo njihove recenzije.   
 
 - [ ] how to solve
 - [ ] izvestaji
-
-- [ ] redirect to prev after login: https://www.baeldung.com/spring-security-redirect-login
 
 ## day 4
 - [x] all cubes
@@ -59,3 +65,12 @@
 
 - [x] delete review as owner or mod or admin
 - [x] comment
+
+## day 11
+
+- [x] combo box
+- [x] omoguciti da jedan korisnik prati druge korisnike, pa da su mu na home stranici prikazane prvo njihove recenzije.   
+- [x] cubes nav bar link
+- [x] 'add cube' style
+- [x] add cube link
+

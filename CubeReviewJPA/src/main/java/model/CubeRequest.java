@@ -18,6 +18,8 @@ public class CubeRequest implements Serializable {
 	@Column(name="cube_request_id")
 	private int cubeRequestId;
 
+	private int approved;
+
 	private String content;
 
 	@Column(name="cube_name")
@@ -37,6 +39,14 @@ public class CubeRequest implements Serializable {
 
 	public void setCubeRequestId(int cubeRequestId) {
 		this.cubeRequestId = cubeRequestId;
+	}
+
+	public int getApproved() {
+		return this.approved;
+	}
+
+	public void setApproved(int approved) {
+		this.approved = approved;
 	}
 
 	public String getContent() {

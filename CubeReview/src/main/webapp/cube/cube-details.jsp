@@ -52,7 +52,7 @@
           <form action="/cube/${cube.cubeId}/edit" method="post">
             Edit cube details
             <br>
-            <table>
+            <table class="edit-table">
             <tr>
               <td>Name:</td>
               <td>

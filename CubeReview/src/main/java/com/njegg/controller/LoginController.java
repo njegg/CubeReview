@@ -93,10 +93,4 @@ public class LoginController {
         return "redirect:/auth/login";
     }
 	
-	@GetMapping("/egg")
-	public String egg(Model m) {
-		m.addAttribute("u", userRepo.findAll());
-		
-		return "kaka";
-	}
 }

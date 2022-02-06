@@ -55,6 +55,7 @@
         <div class="bar3"></div>
         <ul class="mobile-menu">
           <li><a href="/">Home</a></li>
+          <li><a href="/cube/all">Cubes</a></li>
           
           <s:authorize access="isAuthenticated()">
           

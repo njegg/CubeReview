@@ -18,9 +18,9 @@
   <main>
     <div id="main-content">
       <h1 class="err">Access Denied</h1>
+      <hr>
+      <a href="/">Go home</a>
     </div>
-    <hr>
-    <a href="/">Go home</a>
   </main>
   
 </body>

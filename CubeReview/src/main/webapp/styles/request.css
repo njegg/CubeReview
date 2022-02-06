@@ -1,0 +1,57 @@
+:root {
+  --color-g: 	#009b48; 	
+  --color-w: 	#ffffff; 	
+  --color-r: 	#b71234; 
+  --color-rd:   #94122d;
+  --color-rl:   #ff7a7a;
+  --color-y: 	#ffd500; 	
+  --color-b: 	#1d58ad; 	
+  --color-o: 	#ff5800;
+  
+  --color-c: rgb(222, 221, 218);
+  
+  --bgc: #151515;
+  --bgc-l: #1f1f1f;
+  
+  --grad-r: #732f2f;
+}
+
+.request {
+  margin-bottom: 20px;
+  background-color: #1f1f1f;
+  padding: 7px;
+  position: relative;
+}
+
+.request-msg {
+  margin-left: 10px;
+  background-color: #111;
+  width: 95%;
+  padding: 10px;
+}
+
+.request-msg-content {
+  width: 100%;
+  margin: 5px;
+  font-size: 16px;
+  color: #999;
+}
+
+.approve-links {
+  font-size: 15px;
+  position: absolute;
+  right: 0;
+  margin-right: 30px;
+}
+
+.approve-status-yes {
+  color: var(--color-g);
+}
+
+.approve-status-no {
+  color: var(--color-r);
+}
+
+.approve-status-pending {
+  color: var(--color-b);
+}
