@@ -124,7 +124,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{userId}/delete")
-	public String delete(@PathVariable Integer userId, HttpServletRequest request) {
+	public String delete(@PathVariable Integer userId, HttpServletRequest request, Integer admin) {
 		User toDelete = userRepo.findById(userId).orElseThrow();
 		User curUser = currentUser();
 		if (curUser == null) return "access-denied";
@@ -136,7 +136,7 @@ public class UserController {
 		}
 		
 		
-		return "redirect:/auth/logout";
+		return admin != null ? "redirect:/" : "redirect:/auth/logout";
 	}
 	
 	public User currentUser() {

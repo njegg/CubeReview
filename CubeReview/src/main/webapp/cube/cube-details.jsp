@@ -204,12 +204,12 @@
           </span>
           
           <div class="under-review">
-            <s:authorize access="hasRole('ADMIN')">
+            <a href="/review/${r.reviewId}/report" class="under-review-content">Report</a>
+            <s:authorize access="hasAnyRole('ADMIN', 'MOD')">
               <a onclick="confirmToDelete('Are you sure you want to delete review of user: ${r.user.username}?', '${root}/review/${r.reviewId}/delete')" class="under-review-content">Delete review</a>
             </s:authorize>
             
-            <!-- toggle all comments -->
-            <!-- toggle post comment form -->
+            <!-- toggle comments -->
             <a onclick='toggle_div_by_id("review-comments-${r.reviewId}")' class="under-review-content">Toggle comments</a>
           </div>
 

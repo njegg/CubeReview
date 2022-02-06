@@ -3,6 +3,7 @@ package com.njegg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class SearchController {
 	@Autowired
 	UserRepo userRepo;
 	
+	@PreAuthorize("hasAnyRole('USER', 'ADMIN', 'MOD')")
 	@GetMapping("/users")
 	public String search(String query, String type, Model model) {
 		if (query == null) return "search/search-users";

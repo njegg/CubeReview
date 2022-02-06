@@ -16,6 +16,8 @@
   <link rel="stylesheet" href="${root}/styles/nav.css">
   <link rel="stylesheet" href="${root}/styles/review.css">
   
+  <script type="text/javascript" src="${root}/js/confirm-delete.js"></script>
+  
 </head>
 <body>
   <jsp:include page="${root}/nav.jsp"></jsp:include>
@@ -33,23 +35,24 @@
       </c:if>
       
       <s:authorize access="hasRole('ADMIN')">
-        
-        <c:if test="${!editRole}">
-          <a href="/user/${user.username}/edit-role">edit role</a>
-        </c:if>
-        
-        <c:if test="${editRole}">
-          <form action="/user/${user.username}/save-role" method="post">
-            
-            <select name="roleId">
-              <c:forEach items="${roles}" var="r">
-                <option value="${r.roleId}">${r.name}</option>
-              </c:forEach>
-            </select>
-            
-            <input type="submit" class="save-button" value="save">
-            
-          </form>		        
+        <c:if test="${!owner}">
+          <c:if test="${!editRole}">
+            <a href="/user/${user.username}/edit-role">edit role</a>
+          </c:if>
+          
+          <c:if test="${editRole}">
+            <form action="/user/${user.username}/save-role" method="post">
+              
+              <select name="roleId">
+                <c:forEach items="${roles}" var="r">
+                  <option value="${r.roleId}">${r.name}</option>
+                </c:forEach>
+              </select>
+              
+              <input type="submit" class="save-button" value="save">
+              
+            </form>		        
+          </c:if>
         </c:if>
 	  </s:authorize>
       <br>
@@ -92,28 +95,12 @@
 	      </form>
           <textarea maxlength="256" id="about" name="about" form="save-form" rows="8" cols="32" placeholder="Write something about yourself">${user.about}</textarea>
           
-          <button class="delete-button" onclick="confirmDelete()">Delete Account</button>
-          <script>
-        		function confirmDelete() {
-              	let text = "Are you sure you want to delete this account?";
-                  if (confirm(text) == true) {
-                  	window.location.replace("${root}/user/${user.userId}/delete");
-                  }
-        		}
-  		  </script>
+          <button class="delete-button" onclick="confirmDelete('Are you sure you want to delete your account?', '${root}/user/${user.userId}/delete')">Delete Account</button>
 	    </c:if>
 	  </c:if>
       
       <c:if test="${admin && !owner}">
-        <button class="delete-button float-right" onclick="confirmDelete()">Delete Account</button>
-        <script>
-            function confirmDelete() {
-                let text = "Are you sure you want to delete this account?";
-                  if (confirm(text) == true) {
-                    window.location.replace("${root}/user/${user.userId}/delete");
-                  }
-            }
-        </script>
+        <button class="delete-button float-right" onclick="confirmDelete('Are you sure you want to delete this account?', '${root}/user/${user.userId}/delete?admin=1')">Delete Account</button>
       </c:if>
 
 	  <c:if test="${!edit}">
@@ -133,36 +120,38 @@
       </c:if>
       <br>
       
-      <c:forEach items="${reviews}" var="r">
-        <div id="${r.reviewId}" class="review-post">
-          <span class="up-down">
-            <span class="review-votes">${r.votes}</span>
-          </span>
-          <span class="review">
-            <span class="cube-name-review"><a href="/cube/${r.cube.cubeId}">${r.cube.name}</a></span>
-            <br>
-            <a href="/user/${r.user.username}">${r.user.username}  </a>
-            <span class="post-time">at: ${r.creationTime}</span>
-            <br>
-             
-            <c:forEach begin="1" end="${r.rating}" varStatus="loop">
-                <span class="star">
-                  ☆
-                </span>
-            </c:forEach>
-            <c:forEach begin="1" end="${5 - r.rating}" varStatus="loop">
-                <span>
-                  ☆
-                </span>
-            </c:forEach>
-            <br>
-            
-            <a href="/cube/${r.cube.cubeId}#${r.reviewId}" class="review-content">
-              <span>${r.content}</span>
-            </a>
-          </span>
-        </div>
-      </c:forEach>
+      <c:if test="${!editRole}">
+        <c:forEach items="${reviews}" var="r">
+          <div id="${r.reviewId}" class="review-post">
+            <span class="up-down">
+              <span class="review-votes">${r.votes}</span>
+            </span>
+            <span class="review">
+              <span class="cube-name-review"><a href="/cube/${r.cube.cubeId}">${r.cube.name}</a></span>
+              <br>
+              <a href="/user/${r.user.username}">${r.user.username}  </a>
+              <span class="post-time">at: ${r.creationTime}</span>
+              <br>
+               
+              <c:forEach begin="1" end="${r.rating}" varStatus="loop">
+                  <span class="star">
+                    ☆
+                  </span>
+              </c:forEach>
+              <c:forEach begin="1" end="${5 - r.rating}" varStatus="loop">
+                  <span>
+                    ☆
+                  </span>
+              </c:forEach>
+              <br>
+              
+              <a href="/cube/${r.cube.cubeId}#${r.reviewId}" class="review-content">
+                <span>${r.content}</span>
+              </a>
+            </span>
+          </div>
+        </c:forEach>
+      </c:if>
     </div>
   </main>
   

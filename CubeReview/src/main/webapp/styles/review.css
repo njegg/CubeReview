@@ -160,3 +160,20 @@
   color: #aaa;
 }
 
+/* ------------- REPORT ----------------*/
+
+.report-content {
+  background-color: #2f2f2f;
+  padding: 10px;
+}
+
+.report-message {
+  color: #999;
+  font-size: 16px;
+  padding-left: 10px;
+  font-family: mono;
+}
+
+
+
+

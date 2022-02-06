@@ -48,6 +48,10 @@ public class Review implements Serializable {
 	@OneToMany(mappedBy="review", cascade = CascadeType.REMOVE)
 	private List<UserLikeReview> userLikeReviews;
 
+	//bi-directional many-to-one association to ReportReview
+	@OneToMany(mappedBy="review", cascade = CascadeType.REMOVE)
+	private List<ReportReview> reportReviews;
+
 	public Review() {
 	}
 
@@ -149,6 +153,28 @@ public class Review implements Serializable {
 		userLikeReview.setReview(null);
 
 		return userLikeReview;
+	}
+
+	public List<ReportReview> getReportReviews() {
+		return this.reportReviews;
+	}
+
+	public void setReportReviews(List<ReportReview> reportReviews) {
+		this.reportReviews = reportReviews;
+	}
+
+	public ReportReview addReportReview(ReportReview reportReview) {
+		getReportReviews().add(reportReview);
+		reportReview.setReview(this);
+
+		return reportReview;
+	}
+
+	public ReportReview removeReportReview(ReportReview reportReview) {
+		getReportReviews().remove(reportReview);
+		reportReview.setReview(null);
+
+		return reportReview;
 	}
 
 }

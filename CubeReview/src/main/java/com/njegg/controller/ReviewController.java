@@ -1,6 +1,7 @@
 package com.njegg.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.njegg.repository.CommentRepo;
 import com.njegg.repository.CubeRepo;
+import com.njegg.repository.ReportRepo;
 import com.njegg.repository.ReviewRepo;
 import com.njegg.repository.UserLikeReviewRepo;
 import com.njegg.repository.UserRepo;
 import com.njegg.security.CustomUserDetail;
 
 import model.Cube;
+import model.ReportReview;
 import model.Review;
 import model.ReviewComment;
 import model.User;
@@ -45,6 +48,9 @@ public class ReviewController {
 	
 	@Autowired
 	CommentRepo commentRepo;
+	
+	@Autowired
+	ReportRepo reportRepo;
 	
 	@PostMapping("/post-review")
 	public String postReview(Model model, Integer cubeId, String content, Integer rating, Integer edit) {
@@ -250,6 +256,42 @@ public class ReviewController {
 		commentRepo.deleteById(commentId);
 		
 		return "redirect:/cube/" + cube.getCubeId() + "#" + review.getReviewId();
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'MOD', 'USER')")
+	@GetMapping("/{reviewId}/report")
+	public String report(Model model, String content, @PathVariable Integer reviewId) {
+		Review review = reviewRepo.findById(reviewId).orElseThrow();
+		User user = currentUser();
+
+		if (review == null) {
+			model.addAttribute("obj", "Review");
+			return "not-found";
+		}
+		
+		if (content == null) {
+			model.addAttribute("r", review);
+			return "review/report-review";
+		}
+		
+		ReportReview report = new ReportReview();
+		report.setContent(content);
+		report.setReview(review);
+		report.setUser(user);
+		
+		reportRepo.save(report);
+		
+		return "redirect:/cube/" + review.getCube().getCubeId() + "#" + reviewId;
+	}
+	
+	@PreAuthorize("hasAnyRole('ADMIN', 'MOD')")
+	@GetMapping("/all-reports")
+	public String allReports(Model model) {
+		List<ReportReview> reports = reportRepo.findAll();
+		
+		model.addAttribute("reports", reports);
+		
+		return "review/all-reports";
 	}
 	
 	/* ------------ helpers --------------*/

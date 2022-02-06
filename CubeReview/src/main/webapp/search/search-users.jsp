@@ -27,19 +27,31 @@
       <c:if test="${!empty msg}">
         <p class="err">${msg}</p>
       </c:if>
-
-      <hr>
+      <br>
       
       <c:if test="${!empty users}">
-        <c:forEach items="${users}" var="u">
-          <b>
-            <a href="/user/${u.username}">
-              ${u.username}
-            </a>
-          </b>
-          <span class="ver-line">&#65372</span> ${u.email} <span class="ver-line">&#65372</span> ${u.creationTime}
-          <br>          
-        </c:forEach> 
+        <table class="all-table">
+          <tr>
+            <th>Username</th>
+            <th>E-Mail</th>
+            <th>Created on</th>
+          </tr>
+          <c:forEach items="${users}" var="u">
+            <tr>
+              <td class="cube-name-col">
+                <a href="/user/${u.username}">
+                  ${u.username}
+                </a>
+              </td>
+              <td>
+                ${u.email}
+              </td>
+              <td>
+                ${u.creationTime}
+              </td>
+            </tr>
+          </c:forEach>     
+      </table>
       </c:if>
 
     </div>

@@ -4,18 +4,18 @@
   
 <!DOCTYPE html>
 <html>
-  <head>	
-    <meta charset="UTF-8">
-    <title>CubeReview</title>
-	
-	<%request.setAttribute("root", request.getContextPath());%>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="${root}/styles/style.css">
-    <link rel="stylesheet" href="${root}/styles/form.css">
-    <link rel="stylesheet" href="${root}/styles/nav.css">
-    <link rel="stylesheet" href="${root}/styles/review.css">
-    
-  </head>
+<head>	
+  <meta charset="UTF-8">
+  <title>CubeReview</title>
+  
+  <%request.setAttribute("root", request.getContextPath());%>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="${root}/styles/style.css">
+  <link rel="stylesheet" href="${root}/styles/form.css">
+  <link rel="stylesheet" href="${root}/styles/nav.css">
+  <link rel="stylesheet" href="${root}/styles/review.css">
+  
+</head>
 <body>
   <jsp:include page="${root}/nav.jsp"></jsp:include>
   
@@ -46,8 +46,8 @@
       <hr>
       
       Check out all the <a href="/cube/all">cubes</a>!
-            
-      <hr>
+      <br>
+      
       <s:authorize access="isAuthenticated()">
         <c:choose>
           <c:when test="${empty reviews}">
@@ -56,6 +56,8 @@
           </c:when>
           
           <c:otherwise>
+            Find more people <a href="/search/users">here</a>!
+            <br>
             Reviews from people you follow:
             <br>
             <c:forEach items="${reviews}" var="r">

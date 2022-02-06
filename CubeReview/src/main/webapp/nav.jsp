@@ -25,6 +25,9 @@
         <ul>
           <li><a href="/">Home</a></li>
           <li><a href="/cube/all">Cubes</a></li>
+          <s:authorize access="hasAnyRole('MOD', 'ADMIN')">
+            <li><a href="/review/all-reports">Reports</a></li>
+          </s:authorize>
           
           <s:authorize access="isAuthenticated()">
             <li>
@@ -56,6 +59,9 @@
         <ul class="mobile-menu">
           <li><a href="/">Home</a></li>
           <li><a href="/cube/all">Cubes</a></li>
+          <s:authorize access="hasAnyRole('MOD', 'ADMIN')">
+            <li><a href="/review/all-reports">Reports</a></li>
+          </s:authorize>
           
           <s:authorize access="isAuthenticated()">
           

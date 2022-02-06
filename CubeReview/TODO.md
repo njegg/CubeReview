@@ -1,24 +1,6 @@
 # TODO
 
-# !!!!!!!!!!!! FIX C A M E R A !!!!!!!!!!!!!!
-
-- [ ] requests links not in index, but on top of all cubes
-
-- [ ] smaller login home
-
-- [x] requests
-	- [ ] style
-	 
 - [ ] report review
-
-
-- [ ] edit role
-- [ ] profile scripts
-
-- [ ] only registered can search users
-
-
-
 - [ ] how to solve
 - [ ] izvestaji
 
@@ -73,4 +55,11 @@
 - [x] cubes nav bar link
 - [x] 'add cube' style
 - [x] add cube link
+- [x] requests
+- [x] requests links not in index, but on top of all cubes
+- [x] fix camera
+- [x] edit role
+- [x] all users table
+- [x] profile scripts
+- [x] only registered can search users
 

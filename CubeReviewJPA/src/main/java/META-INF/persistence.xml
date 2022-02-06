@@ -6,6 +6,7 @@
 		<class>model.CubeType</class>
 		<class>model.FollowUser</class>
 		<class>model.FollowUserPK</class>
+		<class>model.ReportReview</class>
 		<class>model.Review</class>
 		<class>model.ReviewComment</class>
 		<class>model.Role</class>

@@ -268,14 +268,23 @@ h1 {
   margin-top: 10px;
   width: 100%;
   border-collapse: collapse;
+  font-size: 16px;
+  border: 1px solid var(--grad-r);
+}
+
+.all-table td:first-child,
+.all-table th:first-child
+{
+  text-align: left;
 }
 
 .all-table td:not(:first-child) {
   text-align: center;
 }
 
-.all-table td {
-  padding: 2px 4px 2px 4px;
+.all-table td,
+.all-table th {
+  padding: 2px 4px 2px 15px;
 }
 
 .all-table tr:nth-child(even) {
